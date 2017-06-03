@@ -410,7 +410,7 @@ declare module svgjs {
 
     }
 
-    export interface BBox {
+    export interface Box {
         height:number;
         width:number;
         y:number;
@@ -419,6 +419,8 @@ declare module svgjs {
         //cy:number;
         //merge(bbox:BBox):BBox;
     }
+
+    export interface BBox extends Box {}
 
     export interface RBox extends BBox {}
 
