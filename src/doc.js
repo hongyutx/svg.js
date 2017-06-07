@@ -34,6 +34,9 @@ SVG.Doc = SVG.invent({
         .attr('xmlns:xlink', SVG.xlink, SVG.xmlns)
         .attr('xmlns:svgjs', SVG.svgjs, SVG.xmlns)
     }
+  , createPoint: function(x, y) {
+      return new SVG.Point(x, y);
+  }  
     // Creates and returns defs element
   , defs: function() {
       if (!this._defs) {

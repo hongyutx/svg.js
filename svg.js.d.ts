@@ -32,6 +32,7 @@ declare module svgjs {
 
     export interface Doc extends Container {
         pattern(w:number, h:number, add:(e:Element)=>void):Pattern;
+        createPoint(x: number, y: number);
         
         defs():Defs;
 
