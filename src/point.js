@@ -58,6 +58,55 @@ SVG.Point = SVG.invent({
       return new SVG.Point(this.native().matrixTransform(matrix.native()))
     }
 
+  , distance: function(pt) {
+      var dx = this.x - pt.x;
+      var dy = this.y - pt.y;
+      return Math.sqrt(dx*dx + dy*dy);
+  }
+  
+  ,distanceToLine: function(pt1, pt2) {
+        return Math.abs((pt2.y-pt1.y)*this.x - (pt2.x-pt1.x)*this.y + pt2.x*pt1.y - pt2.y*pt1.x)/Math.sqrt((pt2.y-pt1.y)*(pt2.y-pt1.y) + (pt2.x-pt1.x)*(pt2.x-pt1.x));
+    }
+  , withinLineRange: function(pt1, pt2) {
+        var minX = Math.min(pt1.x, pt2.x);
+        var minY = Math.min(pt1.y, pt2.y);
+        var maxX = Math.max(pt1.x, pt2.x);
+        var maxY = Math.max(pt1.y, pt2.y);
+
+        return this.x >= minX - Trig.CLOSE_ENOUGH_DISTANCE &&
+                this.x <= maxX + Trig.CLOSE_ENOUGH_DISTANCE &&
+                this.y >= minY - Trig.CLOSE_ENOUGH_DISTANCE &&
+                this.y <= maxY + Trig.CLOSE_ENOUGH_DISTANCE; 
+    }
+  , onArc: function(arc) {
+    //x = cx + rx*cos(theta)
+    //y = cy + ry*sin(theta)  
+    if (arc.bbox().contains(this)) {
+      x = arc.cx() + arc.r*Math.cos(arc.ang);
+      y = arc.cy() + arc.r*Math.sin(arc.ang);
+      return (this.x-x) * (this.x-x) + (this.y-y) * (this.y-y) <= Trig.TOLERANCE_DISTANCE_SQR
+    }
+    return false;
+  }
+  ,translate: function(x, y) {
+    this.x = this.x +x;
+    this.y = this.y + y;
+    return this;
+  }
+  ,equals: function(p) {
+    return this.x==p.x && this.y==p.y;
+  }
+  ,closeEnough: function(x, y) {
+        return Math.abs(this.x - x) <= Trig.CLOSE_ENOUGH_DISTANCE && Math.abs(this.y - y) <= Trig.CLOSE_ENOUGH_DISTANCE;
+  }  
+
+  }
+  // Add parent method
+, construct: {
+    // Create a line element
+    point: function(x, y) {
+      return this.put(new SVG.Point(x, y));
+    }
   }
 
 })

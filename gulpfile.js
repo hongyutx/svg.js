@@ -82,6 +82,7 @@ var parts = [
 , 'src/selector.js'
 , 'src/helpers.js'
 , 'src/polyfill.js'
+, 'src/arc.js'
 ]
 
 gulp.task('clean', function() {
@@ -113,7 +114,9 @@ gulp.task('unify', ['clean'], function() {
  */
 gulp.task('minify', ['unify'], function() {
   return gulp.src('dist/svg.js')
-    .pipe(uglify())
+    .pipe(uglify().on('error', function(e){
+      console.log(e);
+    }))
     .pipe(rename({ suffix:'.min' }))
     .pipe(size({ showFiles: true, title: 'Minified' }))
     .pipe(header(headerShort, { pkg: pkg }))
@@ -121,6 +124,5 @@ gulp.task('minify', ['unify'], function() {
     .pipe(gulp.dest('dist'))
     .pipe(size({ showFiles: true, gzip: true, title: 'Gzipped' }))
 })
-
 
 gulp.task('default', ['clean', 'unify', 'minify'])

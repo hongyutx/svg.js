@@ -35,6 +35,10 @@ SVG.Line = SVG.invent({
 
       return this.attr(this.array().size(p.width, p.height).toLine())
     }
+  , mid: function() {
+    return new SVG.Point((this.x1()+this.x2())/2.0, (this.y1()+this.y2())/2.0);
+  }
+  
   }
 
   // Add parent method

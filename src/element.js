@@ -264,5 +264,23 @@ SVG.Element = SVG.invent({
   , is: function(obj){
       return is(this, obj)
     }
+  , x1: function() {
+      return this.attr('x1') ;
   }
+  , y1: function() {
+      return this.attr('y1') ;
+  }
+  , x2: function() {
+      return this.attr('x2') ;
+  }
+  , y2: function() {
+      return this.attr('y2') ;
+  }
+  , translateFull: function(x, y, relative) {
+    return this.transform({ x: x, y: y }, relative);
+  }
+  , container: function() {
+      return this.parent(SVG.Container);
+  }  
+}
 })

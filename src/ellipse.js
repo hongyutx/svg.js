@@ -5,6 +5,12 @@ SVG.Circle = SVG.invent({
   // Inherit from
 , inherit: SVG.Shape
 
+, extend: {
+  inside: function(x, y) {
+        return x >= this.cx() - this.rx() && y >= this.cy() - this.ry() && x <= this.cx() + this.rx() &&
+            y <= this.cy() + this.ry();
+    }
+}
   // Add parent method
 , construct: {
     // Create circle element, based on ellipse

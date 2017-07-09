@@ -110,6 +110,11 @@ SVG.BBox = SVG.invent({
   // Define Parent
 , parent: SVG.Element
 
+, extend: {
+  contains: function(pt) {
+    return pt.x >= this.x && pt.y >= this.y && pt.x <= this.x+this.width && pt.y <= this.y+this.height;
+  }
+}
   // Constructor
 , construct: {
     // Get bounding box

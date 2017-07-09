@@ -32,8 +32,8 @@ declare module svgjs {
 
     export interface Doc extends Container {
         pattern(w:number, h:number, add:(e:Element)=>void):Pattern;
-        createPoint(x: number, y: number);
         
+        createPoint(x: number, y: number): Point;
         defs():Defs;
 
         mask():Mask;
@@ -137,7 +137,7 @@ declare module svgjs {
         transform(): Transform;
         transform(n: string): number;
         transform(o: Object, relative: boolean): Element;
-
+        matrixify(): Matrix;
         node: SVGElement;
 
         nested():Doc;
@@ -153,8 +153,8 @@ declare module svgjs {
         style(obj:Object):Element;
         style(name:string):string;
         style():string;
-        bbox():BBox;
-        rbox():RBox;
+        bbox(p: Parent):BBox;
+        rbox(p: Parent):RBox;
         doc():Doc;
         data(name:string):any;
         data(name:string, value:any):Element;
@@ -263,7 +263,11 @@ declare module svgjs {
     }
     
     export interface Rect extends Shape {
-
+        inside(x: number, y: number): boolean;
+        leftTopX(): number;
+        leftTopY(): number;
+        rightBottomX(): number;
+        rightBottomY(): number;
     }
 
     export interface Group extends Container {
@@ -418,7 +422,7 @@ declare module svgjs {
         x:number;
         //cx:number;
         //cy:number;
-        //merge(bbox:BBox):BBox;
+        merge(box:Box):Box;
     }
 
     export interface BBox extends Box {}
@@ -476,4 +480,19 @@ declare module svgjs {
         //e?: number;
         //f?: number;
     }
+
+    export interface Arc extends Path {
+        plotRadius(x1: number, y1: number, r: number, largeArcFlag: number, sweepFlag: number, x2: number, y2: number): Arc;        
+        plot(x1: number, y1: number, h: number, sweepFlag: number, x2: number, y2: number): Arc;    
+        
+        h(): number;
+        angle(): number;
+        flag(): number;
+        sweep(f: number);
+        sweep(): number;
+        length(): number;
+        ptOnArc(pt: Point): boolean;
+        closeEnough(x: number, y: number): boolean;
+    }
+    
 }

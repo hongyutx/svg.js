@@ -10,6 +10,29 @@ var SVG = this.SVG = function(element) {
   }
 }
 
+var Trig = (function () {
+    function Trig() {
+    }
+
+    return Trig;
+}());
+
+Trig.CLOSE_ENOUGH_DISTANCE = 4;
+Trig.TOLERANCE_DISTANCE = 4;
+Trig.TOLERANCE_DISTANCE_SQR = 16;
+
+if (!String.prototype.format) {
+    String.prototype.format = function () {
+        var args = arguments;
+        return this.replace(/{(\d+)}/g, function (match, number) {
+            return typeof args[number] != 'undefined'
+                ? args[number]
+                : match;
+        });
+    };
+}
+
+
 // Default namespaces
 SVG.ns    = 'http://www.w3.org/2000/svg'
 SVG.xmlns = 'http://www.w3.org/2000/xmlns/'
