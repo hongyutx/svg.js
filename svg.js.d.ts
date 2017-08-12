@@ -423,6 +423,7 @@ declare module svgjs {
         //cx:number;
         //cy:number;
         merge(box:Box):Box;
+        mergePoint(pt:Point):Box;
     }
 
     export interface BBox extends Box {}
