@@ -27,6 +27,18 @@ SVG.Box = SVG.invent({
       return fullBox(b)
     }
 
+    , mergePoint: function(pt) {
+      var b = new this.constructor()
+
+      // merge boxes
+      b.x      = Math.min(this.x, pt.x)
+      b.y      = Math.min(this.y, pt.y)
+      b.width  = Math.max(this.x + this.width,  pt.x)  - b.x
+      b.height = Math.max(this.y + this.height, pt.y) - b.y
+
+      return fullBox(b)
+    }
+
   , transform: function(m) {
       var xMin = Infinity, xMax = -Infinity, yMin = Infinity, yMax = -Infinity, p, bbox
 

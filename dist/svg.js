@@ -6,7 +6,7 @@
 * @copyright Wout Fierens <wout@mick-wout.com>
 * @license MIT
 *
-* BUILT: Sun Jul 09 2017 15:47:33 GMT-0500 (CDT)
+* BUILT: Sat Aug 12 2017 09:35:32 GMT-0500 (CDT)
 */;
 (function(root, factory) {
   /* istanbul ignore next */
@@ -2266,6 +2266,18 @@ SVG.Box = SVG.invent({
       b.y      = Math.min(this.y, box.y)
       b.width  = Math.max(this.x + this.width,  box.x + box.width)  - b.x
       b.height = Math.max(this.y + this.height, box.y + box.height) - b.y
+
+      return fullBox(b)
+    }
+
+    , mergePoint: function(pt) {
+      var b = new this.constructor()
+
+      // merge boxes
+      b.x      = Math.min(this.x, pt.x)
+      b.y      = Math.min(this.y, pt.y)
+      b.width  = Math.max(this.x + this.width,  pt.x)  - b.x
+      b.height = Math.max(this.y + this.height, pt.y) - b.y
 
       return fullBox(b)
     }

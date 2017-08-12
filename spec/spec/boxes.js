@@ -37,6 +37,18 @@ describe('Box', function() {
         x: 50, y: 50, cx: 325, cy: 275, width: 550, height: 450
       }))
     })
+    it('merges various bounding boxes with point', function() {
+      debugger
+      var box1 = new SVG.Box(50, 50, 100, 100)
+      var pt = new SVG.Point(300, 400)
+      expect(pt.x).toBe(300)
+      expect(pt.y).toBe(400)
+      var merged = box1.mergePoint(pt)
+
+      expect(merged).toEqual(jasmine.objectContaining({
+        x: 50, y: 50, cx: 175, cy: 225, width: 250, height: 350
+      }))
+    })
     it('returns a new instance', function() {
       var box1 = new SVG.Box(50, 50, 100, 100)
       var box2 = new SVG.Box(300, 400, 100, 100)
